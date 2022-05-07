@@ -11,28 +11,20 @@
  * @param {number} n
  * @return {number}
  */
-var guessNumber = function(n) {
+var guesser = function(lo,hi){
+    const mid = Math.floor((hi - lo) / 2) + lo;
     
+    const guessed = guess(mid);
+    
+    if(guessed === 0) return mid;
+    
+    if(guessed === -1) return guesser(lo, mid-1);
+    
+    if(guessed === 1) return guesser(mid+1,hi);
+}
+
+var guessNumber = function(n) {
     if(guess(n) === 0) return n;
     
-    let lo = 1;
-    let hi = n;
-    
-    while(lo <= hi){
-        let mid = Math.floor((hi - lo) / 2) + lo;
-        let guessed = guess(mid);
-        
-        if(guessed === 0) return mid;
-        
-        // Your guess is lower than the number I picked
-        if(guessed === 1){
-            lo = mid + 1;
-        }
-        
-        // Your guess is higher than the number I picked
-        if(guessed === -1){
-            hi = mid - 1;
-        } 
-    }
-    
+    return guesser(1,n);
 };
