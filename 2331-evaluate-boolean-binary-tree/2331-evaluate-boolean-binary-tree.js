@@ -10,18 +10,26 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var evaluateNode = function(node){
-    if(node.val === 0 || node.val === 1) return node.val;
-    
-    if(node.val === 2)
-        return evaluateNode(node.left) || evaluateNode(node.right);
-    
-    if(node.val === 3)
-        return evaluateNode(node.left) && evaluateNode(node.right);
-}
+function evaluateTree(root) {
+    if (!root) {
+        return false;
+    }
 
-var evaluateTree = function(root) {
-    return evaluateNode(root);
+    if (root.val === 0) {
+        return false;
+    }
+
+    if (root.val === 1) {
+        return true;
+    }
+
+    if (root.val === 2) {
+        return evaluateTree(root.left) || evaluateTree(root.right);
+    }
+
+    if (root.val === 3) {
+        return evaluateTree(root.left) && evaluateTree(root.right);
+    }
 };
 
 /*
