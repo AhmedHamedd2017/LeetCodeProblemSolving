@@ -4,14 +4,13 @@
  * @return {number[]}
  */
 var targetIndices = function(nums, target) {
-    const indices = [];
-    const newNums = [...nums];
+    let targetMatches = 0;
+    let lessThaners = 0;
     
-    newNums.sort((a,b) => a - b)
+    nums.forEach((num) => {
+        if(num === target) ++targetMatches;
+        else if(num < target) ++ lessThaners;
+    })
     
-    newNums.forEach((num,index) => {
-        if(num === target) indices.push(index)
-    });
-    
-    return indices;
+    return Array(targetMatches).fill().map((_, i) => lessThaners+i);
 };
