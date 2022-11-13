@@ -12,27 +12,12 @@
  */
 var sortedArrayToBST = function(nums) {
     if(nums.length == 0) return null;
-    if(nums.length < 2) return new TreeNode(nums[0]);
-    
-    const lessThan = [];
-    const moreThan = [];
-    let middle = 0;
-    
-    const middleIndex = Math.floor(nums.length  / 2);
-    nums.forEach((num, index) => {
-        
-            if (index < middleIndex)
-                lessThan.push(num);
-            else if (index === middleIndex)
-                middle = num;
-            else if(index > middleIndex)
-                moreThan.push(num);
-    
-    })
-    
-    console.log(lessThan);
-    
-    return new TreeNode(middle, sortedArrayToBST(lessThan), sortedArrayToBST(moreThan));
+    if(nums.length == 1) return new TreeNode(nums[0])
+    let mid = Math.floor(nums.length * 0.5)
+    var node = new TreeNode(nums[mid]);
+    node.left = sortedArrayToBST(nums.slice(0, mid))
+    node.right = sortedArrayToBST(nums.splice(mid +1))
+    return node;
     
     
 };
