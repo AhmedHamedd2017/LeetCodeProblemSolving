@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function(nums) {
+    if(nums.length == 0) return null;
+    if(nums.length < 2) return new TreeNode(nums[0]);
+    
+    const lessThan = [];
+    const moreThan = [];
+    let middle = 0;
+    
+    const middleIndex = Math.floor(nums.length  / 2);
+    nums.forEach((num, index) => {
+        
+            if (index < middleIndex)
+                lessThan.push(num);
+            else if (index === middleIndex)
+                middle = num;
+            else if(index > middleIndex)
+                moreThan.push(num);
+    
+    })
+    
+    console.log(lessThan);
+    
+    return new TreeNode(middle, sortedArrayToBST(lessThan), sortedArrayToBST(moreThan));
+    
+    
+};
