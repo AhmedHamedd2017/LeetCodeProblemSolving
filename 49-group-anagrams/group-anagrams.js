@@ -2,19 +2,24 @@
  * @param {string[]} strs
  * @return {string[][]}
  */
-var groupAnagrams = function(strs) {
-    const sortedStrs = strs.map((str) => str.split("").sort().join(""))
-    const dict = {};
-    const result = [];
+// ["eat","tea","tan","ate","nat","bat"]
+function getCode(char){
+    return char.charCodeAt(0) - "a".charCodeAt(0);
+};
 
-    for(let i = 0; i < sortedStrs.length; i++){
-        if(dict[sortedStrs[i]] === 0 || dict[sortedStrs[i]]){
-            result[dict[sortedStrs[i]]].push(strs[i])
-        }else{
-            dict[sortedStrs[i]] = result.length;
-            result.push([strs[i]]);
+var groupAnagrams = function(strs) {
+    const anagramMap = new Map();
+
+    for(let str of strs){
+        const frequency = new Array(26).fill(0);
+        for(let char of str){
+            frequency[getCode(char)]++;
         }
+        
+        const values = anagramMap.get(frequency.toString()) || [];
+        values.push(str);
+        anagramMap.set(frequency.toString(), values)
     }
 
-    return result;
+    return [...anagramMap.values()]
 };
