@@ -2,24 +2,24 @@
  * @param {string[]} strs
  * @return {string[][]}
  */
-// ["eat","tea","tan","ate","nat","bat"]
-function getCode(char){
-    return char.charCodeAt(0) - "a".charCodeAt(0);
+const getCharCode = (char) => {
+    return char.charCodeAt(0) - "a".charCodeAt(0)
 };
 
-var groupAnagrams = function(strs) {
-    const anagramMap = new Map();
+var groupAnagrams = function (strs) {
+    const map = new Map();
 
-    for(let str of strs){
-        const frequency = new Array(26).fill(0);
-        for(let char of str){
-            frequency[getCode(char)]++;
+    for (let i = 0; i < strs.length; i++) {
+        const frequency = Array(26).fill(0);
+        for (let char of strs[i]) {
+            frequency[getCharCode(char)] += 1;
         }
-        
-        const values = anagramMap.get(frequency.toString()) || [];
-        values.push(str);
-        anagramMap.set(frequency.toString(), values)
+        const stringFrequency = frequency.toString()
+        const mapValue = map.get(stringFrequency) || [];
+        mapValue.push(strs[i]);
+        map.set(stringFrequency, mapValue);
     }
 
-    return [...anagramMap.values()]
+    console.log(map.values())
+    return [...map.values()]
 };
